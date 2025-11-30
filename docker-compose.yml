@@ -1,0 +1,75 @@
+version: "3.8"
+
+services:
+  # --- VENDOR A (Legacy) ---
+  vendor-a:
+    image: node:18-alpine
+    container_name: marketplace-vendor-a
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - ./vendor-a:/app
+      - /app/node_modules
+    command: npm install && npm start
+    networks:
+      - homeserver-net
+    # Tidak perlu expose port ke host, karena hanya diakses oleh Integrator
+    # Tapi kalau mau debug via browser lokal, boleh buka port:
+    ports:
+      - "3001:3000"
+
+  # --- VENDOR B (Modern) ---
+  vendor-b:
+    image: node:18-alpine
+    container_name: marketplace-vendor-b
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - ./vendor-b:/app
+      - /app/node_modules
+    command: npm install && npm start
+    networks:
+      - homeserver-net
+    ports:
+      - "3002:3000"
+
+  # --- VENDOR C (Complex) ---
+  vendor-c:
+    image: node:18-alpine
+    container_name: marketplace-vendor-c
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - ./vendor-c:/app
+      - /app/node_modules
+    command: npm install && npm start
+    networks:
+      - homeserver-net
+    ports:
+      - "3003:3000"
+
+  # --- INTEGRATOR (Pusat) ---
+  integrator:
+    image: node:18-alpine
+    container_name: marketplace-integrator
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - ./integrator:/app
+      - /app/node_modules
+    command: npm install && npm start
+    ports:
+      - "3000:3000" # Port ini yang nanti ditarget Cloudflare Tunnel
+    networks:
+      - homeserver-net
+    environment:
+      # URL Internal Docker (Bukan Localhost, tapi nama service)
+      - VENDOR_A_URL=http://vendor-a:3000
+      - VENDOR_B_URL=http://vendor-b:3000
+      - VENDOR_C_URL=http://vendor-c:3000
+
+# Menggunakan Network yang sudah ada di Server Vault-01 Anda
+networks:
+  homeserver-net:
+    external: true
+    name: srv_homeserver-net
