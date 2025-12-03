@@ -1,7 +1,6 @@
 version: "3.8"
 
 services:
-  # --- Vendor A ---
   vendor-a:
     image: node:18-alpine
     container_name: marketplace-vendor-a
@@ -15,8 +14,9 @@ services:
       - homeserver-net
     ports:
       - "3001:3000"
+    environment:
+      - API_SECRET=${API_SECRET}
 
-  # --- Vendor B ---
   vendor-b:
     image: node:18-alpine
     container_name: marketplace-vendor-b
@@ -30,8 +30,9 @@ services:
       - homeserver-net
     ports:
       - "3002:3000"
+    environment:
+      - API_SECRET=${API_SECRET}
 
-  # --- Vendor C ---
   vendor-c:
     image: node:18-alpine
     container_name: marketplace-vendor-c
@@ -45,8 +46,9 @@ services:
       - homeserver-net
     ports:
       - "3003:3000"
+    environment:
+      - API_SECRET=${API_SECRET}
 
-  # --- Integrator ---
   integrator:
     image: node:18-alpine
     container_name: marketplace-integrator
@@ -64,6 +66,7 @@ services:
       - VENDOR_A_URL=http://vendor-a:3000
       - VENDOR_B_URL=http://vendor-b:3000
       - VENDOR_C_URL=http://vendor-c:3000
+      - API_SECRET=${API_SECRET}
 
 networks:
   homeserver-net:
