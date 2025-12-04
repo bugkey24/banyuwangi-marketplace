@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   vendor-a:
-    image: node:18-alpine
+    image: node:20-alpine
     container_name: marketplace-vendor-a
     restart: unless-stopped
     working_dir: /app
@@ -18,7 +18,7 @@ services:
       - API_SECRET=${API_SECRET}
 
   vendor-b:
-    image: node:18-alpine
+    image: node:20-alpine
     container_name: marketplace-vendor-b
     restart: unless-stopped
     working_dir: /app
@@ -34,7 +34,7 @@ services:
       - API_SECRET=${API_SECRET}
 
   vendor-c:
-    image: node:18-alpine
+    image: node:20-alpine
     container_name: marketplace-vendor-c
     restart: unless-stopped
     working_dir: /app
@@ -50,7 +50,7 @@ services:
       - API_SECRET=${API_SECRET}
 
   integrator:
-    image: node:18-alpine
+    image: node:20-alpine
     container_name: marketplace-integrator
     restart: unless-stopped
     working_dir: /app
