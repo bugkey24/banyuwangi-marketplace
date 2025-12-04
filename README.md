@@ -146,6 +146,34 @@ VENDOR_C_URL=http://marketplace-vendor-c:3000
 docker compose up -d --build
 ```
 
+### ⚠️ Important Notes for Docker Compose
+
+- **1 🔗** → Network requirement  
+   This project uses a custom external Docker network (`srv_homeserver-net`).  
+   Make sure to create it before running `docker compose up`:
+
+  ```bash
+  docker network create srv_homeserver-net
+  ```
+
+- **2 🌐** → Port mapping
+
+  - Integrator is exposed on 3000 → accessible publicly.
+  - Vendor A, B, C are mapped to 3001–3003 → accessible for local testing.
+  - 💡 In production, you may remove the ports: section for Vendor A/B/C so they are only reachable internally via the Integrator.
+
+- **3 🔑** → Environment variables
+
+  - All services share the same `API_SECRET` (defined in `.env`).
+  - Do not commit your real `.env` file. Only `.env.example` should be tracked in Git.
+
+- **4 📦** → Volumes
+  - Each service mounts its source code folder (`./vendor-x:/app`).
+  - The line `- /app/node_modules` is used to prevent host `node_modules` from overwriting container dependencies.
+  - ⚠️ If you encounter issues, you can remove this line and let Docker manage `node_modules` inside the container.
+
+---
+
 #### 🌐 Services will be available at:
 
 - Integrator (Public API): http://localhost:4000
