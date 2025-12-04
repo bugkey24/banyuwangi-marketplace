@@ -340,12 +340,12 @@ Public access is managed via **Cloudflare Zero Trust (Tunnel)**.
 
 ## 👨‍💻 Development Team
 
-| Role           | Student Name     | Responsibility                                  |
-| -------------- | ---------------- | ----------------------------------------------- |
-| **Vendor A**   | [Name Student 1] | Legacy API Provider (String Data)               |
-| **Vendor B**   | [Name Student 2] | Modern API Provider (Typed Data)                |
-| **Vendor C**   | [Name Student 3] | Complex API Provider (Nested Data)              |
-| **Integrator** | [Your Name]      | Lead, DevOps, API Gateway & Normalization Logic |
+| Role           | Student Name | Responsibility                                  |
+| -------------- | ------------ | ----------------------------------------------- |
+| **Vendor A**   | Munir        | Legacy API Provider (String Data)               |
+| **Vendor B**   | Nadia        | Modern API Provider (Typed Data)                |
+| **Vendor C**   | Hilma        | Complex API Provider (Nested Data)              |
+| **Integrator** | Dida         | Lead, DevOps, API Gateway & Normalization Logic |
 
 ---
 
