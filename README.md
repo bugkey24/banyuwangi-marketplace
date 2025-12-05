@@ -90,7 +90,7 @@ banyuwangi-marketplace
 
 ### 🔑 Prerequisites
 
-- Node.js v18+
+- Node.js v20+
 - Docker & Docker Compose
 - Git
 
@@ -99,7 +99,7 @@ banyuwangi-marketplace
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/banyuwangi-marketplace.git
+git clone https://github.com/bugkey24/banyuwangi-marketplace.git
 cd banyuwangi-marketplace
 ```
 
@@ -158,8 +158,8 @@ docker compose up -d --build
 
 - **2 🌐** → Port mapping
 
-  - Integrator is exposed on 3000 → accessible publicly.
-  - Vendor A, B, C are mapped to 3001–3003 → accessible for local testing.
+  - Integrator is exposed on 4000 → accessible publicly.
+  - Vendor A, B, C are mapped to 4001–3003 → accessible for local testing.
   - 💡 In production, you may remove the ports: section for Vendor A/B/C so they are only reachable internally via the Integrator.
 
 - **3 🔑** → Environment variables
@@ -314,10 +314,10 @@ curl -X POST "http://localhost:4001/api/produk" \
  -H "Content-Type: application/json" \
  -H "x-api-key: your_secure_api_key_2025" \
  -d '{
-"kd_produk": "A002",
-"nm_brg": "Teh Sosro",
-"hrg": "5000",
-"ket_stok": "ada"
+  "kd_produk": "A002",
+  "nm_brg": "Teh Sosro",
+  "hrg": "5000",
+  "ket_stok": "ada"
 }'
 ```
 
@@ -328,9 +328,9 @@ curl -X PUT "http://localhost:4002/api/products/SKU-101" \
  -H "Content-Type: application/json" \
  -H "x-api-key: your_secure_api_key_2025" \
  -d '{
-"productName": "Kaos Polos Premium",
-"price": 85000,
-"isAvailable": true
+  "productName": "Kaos Polos Premium",
+  "price": 85000,
+  "isAvailable": true
 }'
 ```
 
@@ -341,10 +341,10 @@ curl -X POST "http://localhost:4003/api/menu" \
  -H "Content-Type: application/json" \
  -H "x-api-key: your_secure_api_key_2025" \
  -d '{
-"id": 301,
-"details": { "name": "Ayam Geprek", "category": "Main Dish" },
-"pricing": { "base_price": 18000, "tax": 2000 },
-"stock": 15
+  "id": 301,
+  "details": { "name": "Ayam Geprek", "category": "Main Dish" },
+  "pricing": { "base_price": 18000, "tax": 2000 },
+  "stock": 15
 }'
 ```
 
@@ -357,12 +357,12 @@ Public access is managed via **Cloudflare Zero Trust (Tunnel)**.
 
 ### 📡 Services & Production URLs
 
-| Service                 | Production URL                               |
-| ----------------------- | -------------------------------------------- |
-| **Integrator (Public)** | https://kabupaten.yourdomain.com/api/catalog |
-| **Vendor A**            | https://warung.yourdomain.com/api/produk     |
-| **Vendor B**            | https://distro.yourdomain.com/api/products   |
-| **Vendor C**            | https://resto.yourdomain.com/api/menu        |
+| Service                 | Production URL                                   |
+| ----------------------- | ------------------------------------------------ |
+| **Integrator (Public)** | https://marketplace.vaultnode.web.id/api/catalog |
+| **Vendor A**            | https://warung.vaultnode.web.id/api/produk       |
+| **Vendor B**            | https://distro.vaultnode.web.id/api/products     |
+| **Vendor C**            | https://resto.vaultnode.web.id/api/menu          |
 
 ---
 

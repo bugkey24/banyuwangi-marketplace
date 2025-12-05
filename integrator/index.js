@@ -8,9 +8,9 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-const VENDOR_A = process.env.VENDOR_A_URL || "http://localhost:3001";
-const VENDOR_B = process.env.VENDOR_B_URL || "http://localhost:3002";
-const VENDOR_C = process.env.VENDOR_C_URL || "http://localhost:3003";
+const VENDOR_A = process.env.VENDOR_A_URL || "http://localhost:4001";
+const VENDOR_B = process.env.VENDOR_B_URL || "http://localhost:4002";
+const VENDOR_C = process.env.VENDOR_C_URL || "http://localhost:4003";
 
 const axiosConfig = {
   headers: { "x-api-key": process.env.API_SECRET },
@@ -40,7 +40,7 @@ app.get("/api/catalog", async (req, res) => {
         source: "Warung Klontong",
         key_id: item.kd_produk,
         name: item.nm_brg,
-        final_price: hrgInt - hrgInt * 0.1,
+        final_price: hrgInt - hrgInt * 0.1 + hrgInt.tax,
         status: item.ket_stok ? item.ket_stok.toLowerCase() : "habis",
       });
     });
@@ -50,7 +50,7 @@ app.get("/api/catalog", async (req, res) => {
         source: "Distro Fashion",
         key_id: item.sku,
         name: item.productName,
-        final_price: item.price,
+        final_price: item.price + item.pricing.tax,
         status: item.isAvailable ? "Tersedia" : "Habis",
       });
     });

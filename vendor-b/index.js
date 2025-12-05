@@ -13,12 +13,16 @@ mongoose
   .then(() => console.log("✅ Vendor B (Distro) DB Connected"));
 
 // --- MIDDLEWARE API KEY ---
-app.use((req, res, next) => {
-  if (req.headers["x-api-key"] !== process.env.API_SECRET) {
-    return res.status(401).json({ message: "Unauthorized Access" });
+const apiKeyAuth = (req, res, next) => {
+  const key = req.headers["x-api-key"];
+  if (!key || key !== process.env.API_SECRET) {
+    return res.status(401).json({
+      error: "Unauthorized",
+      message: "Akses Ditolak: API Key Salah/Tidak Ada",
+    });
   }
   next();
-});
+};
 
 const ProductSchema = new mongoose.Schema(
   {
@@ -50,6 +54,8 @@ app.get("/api/products/:sku", async (req, res) => {
     ? res.json(item)
     : res.status(404).json({ message: "Product not found" });
 });
+
+app.use(apiKeyAuth);
 
 app.post("/api/products", async (req, res) => {
   try {

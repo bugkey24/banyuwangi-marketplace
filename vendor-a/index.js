@@ -25,7 +25,6 @@ const apiKeyAuth = (req, res, next) => {
   }
   next();
 };
-app.use(apiKeyAuth);
 
 // --- SCHEMA ---
 const ProductSchema = new mongoose.Schema(
@@ -60,6 +59,8 @@ app.get("/api/produk/:kd", async (req, res) => {
   if (!item) return res.status(404).json({ message: "Barang tidak ditemukan" });
   res.json(item);
 });
+
+app.use(apiKeyAuth);
 
 // CREATE
 app.post("/api/produk", async (req, res) => {

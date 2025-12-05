@@ -13,12 +13,16 @@ mongoose
   .then(() => console.log("✅ Vendor C (Resto) DB Connected"));
 
 // --- MIDDLEWARE API KEY ---
-app.use((req, res, next) => {
-  if (req.headers["x-api-key"] !== process.env.API_SECRET) {
-    return res.status(401).json({ message: "Unauthorized Access" });
+const apiKeyAuth = (req, res, next) => {
+  const key = req.headers["x-api-key"];
+  if (!key || key !== process.env.API_SECRET) {
+    return res.status(401).json({
+      error: "Unauthorized",
+      message: "Akses Ditolak: API Key Salah/Tidak Ada",
+    });
   }
   next();
-});
+};
 
 // --- SCHEMA (Nested) ---
 const ProductSchema = new mongoose.Schema(
@@ -58,6 +62,8 @@ app.get("/api/menu/:id", async (req, res) => {
   const item = await ProductC.findOne({ id: req.params.id });
   item ? res.json(item) : res.status(404).json({ message: "Menu not found" });
 });
+
+app.use(apiKeyAuth);
 
 // CREATE
 app.post("/api/menu", async (req, res) => {

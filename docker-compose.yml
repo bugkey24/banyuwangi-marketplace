@@ -13,7 +13,7 @@ services:
     networks:
       - homeserver-net
     ports:
-      - "3001:3000"
+      - "4001:3000"
     environment:
       - API_SECRET=${API_SECRET}
 
@@ -24,12 +24,12 @@ services:
     working_dir: /app
     volumes:
       - ./vendor-b:/app
-      - /app/node_modules
+        - /app/node_modules
     command: sh -c "npm install && npm start"
     networks:
       - homeserver-net
     ports:
-      - "3002:3000"
+      - "4002:3000"
     environment:
       - API_SECRET=${API_SECRET}
 
@@ -45,7 +45,7 @@ services:
     networks:
       - homeserver-net
     ports:
-      - "3003:3000"
+      - "4003:3000"
     environment:
       - API_SECRET=${API_SECRET}
 
@@ -59,7 +59,7 @@ services:
       - /app/node_modules
     command: sh -c "npm install && npm start"
     ports:
-      - "3000:3000"
+      - "4000:3000"
     networks:
       - homeserver-net
     environment:
